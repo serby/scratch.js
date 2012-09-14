@@ -1,0 +1,33 @@
+<html>
+  <head>
+    <title>HTML5 Webcam Test</title>
+  </head>
+  <body>
+
+    <div id="message">Hello</div>
+    <video id="live"></video>
+    <script type="text/javascript">
+      var m = document.getElementById('message');
+
+      var getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia;
+
+      var url = window.URL || window.webkitURL || window.mozURL || window.msURL;
+
+      if (getUserMedia) {
+        getUserMedia = getUserMedia.bind(navigator);
+        var video = document.getElementById('live');
+        video.autoplay = true;
+        function success(stream) {
+          video.src = window.webkitURL.createObjectURL(stream);
+        }
+        function error(err) {
+          console.log("Unable to get video stream!")
+        }
+        getUserMedia({video: true}, success, error);
+      } else {
+        m.innerHTML = "You're browser doesn't support user media";
+      }
+
+    </script>
+  </body>
+</html>
